@@ -88,7 +88,7 @@ Ideas this skill is happy to crush early include yours. That's the point.
 
 ## License
 
-No license. Use it, fork it, modify it, re-share it. Attribution appreciated but not required.
+MIT — see [LICENSE](LICENSE). Use it, fork it, modify it, re-share it.
 
 ## Contributing
 
