@@ -1,6 +1,6 @@
 # Business Idea Stress Tester
 
-A Claude Code / Claude.ai **skill** that puts new business or product ideas through a structured, brutally honest pre-mortem — Socratic dialogue, deep web research, devil's-advocate critique — across both **idea quality** and **founder/resource fit**, then ships a printable HTML verdict report.
+An OpenCode / Codex / Claude-compatible **skill** that puts new business or product ideas through a structured, brutally honest pre-mortem — Socratic dialogue, deep web research, devil's-advocate critique — across both **idea quality** and **founder/resource fit**, then ships a printable HTML verdict report.
 
 It's not a brainstorming partner. It's not a friendly second opinion. It's the conversation you'd have with an experienced co-founder doing free office hours: sharp, honest, useful — designed to break the idea *now*, before money and time are committed.
 
@@ -31,21 +31,38 @@ It does **not** trigger for already-launched product feedback, marketing audits,
 
 ## Install
 
-### Claude Code (CLI)
+### OpenCode (optional)
 
-Drop the skill into your skills directory:
-
-```bash
-git clone https://github.com/buraksu42/business-idea-stress-tester ~/.claude/skills/business-idea-stress-tester
-```
-
-That's it. Next time you start a Claude Code session and share an idea, the skill activates automatically.
-
-To update later:
+Use one maintained clone and link it to the client’s global skill directory.
+The example uses `~/Skills`; choose a different source directory if preferred.
+If either path already exists (including a broken symlink), inspect it first; do not overwrite it.
 
 ```bash
-cd ~/.claude/skills/business-idea-stress-tester && git pull
+mkdir -p "$HOME/Skills" "$HOME/.config/opencode/skills"
+git clone https://github.com/buraksu42/business-idea-stress-tester.git "$HOME/Skills/business-idea-stress-tester"
+ln -s "$HOME/Skills/business-idea-stress-tester" "$HOME/.config/opencode/skills/business-idea-stress-tester"
 ```
+
+Open a new OpenCode session and ask it to load `business-idea-stress-tester` using its skill tool;
+verify the reported source resolves to `~/Skills/business-idea-stress-tester/SKILL.md`.
+OpenCode's [global skill discovery](https://opencode.ai/docs/skills/) is on-demand;
+installation alone does not force invocation on every request.
+
+For updates, first inspect `git status --short --branch` and `git diff` in the clone.
+Only on a clean, intended tracking branch, run `git pull --ff-only`; stop on divergence.
+Do not auto-stash, discard local changes, or push as part of a skill update.
+
+Choose the client, model provider, and development host in your own configuration.
+This public skill contains no personal infrastructure profile and requires no specific
+provider subscription. Follow the project's configured test commands and repository rules.
+See the runtime compatibility section in `SKILL.md` for tool and git boundaries.
+
+### Other compatible clients (optional)
+
+Claude Code may use a non-overwriting directory symlink from
+`~/.claude/skills/business-idea-stress-tester` to the same central clone. Codex may use its configured
+skill directory. Check existing copies first, especially `~/.agents/skills`, which
+OpenCode also discovers; avoid duplicate skill names. No second clone is needed.
 
 ### Claude.ai (web / desktop)
 
@@ -53,7 +70,7 @@ Download `business-idea-stress-tester.skill` from this repo, then upload it via 
 
 ## Usage
 
-Just talk to Claude about your idea. No slash command, no special invocation. Example openings that trigger the skill:
+Just talk to the agent about your idea. No slash command, no special invocation. Example openings that trigger the skill:
 
 > *"I have an idea for a tool that helps freelancers track invoices…"*
 >
@@ -61,7 +78,7 @@ Just talk to Claude about your idea. No slash command, no special invocation. Ex
 >
 > *"Should I start a SaaS for [niche]?"*
 
-Claude will respond as the stress-tester: questions first, then research, then verdict, then HTML report. The whole flow takes 30–60 minutes of dialogue depending on how much pushback the idea survives.
+The agent will respond as the stress-tester: questions first, then research, then verdict, then HTML report. The whole flow takes 30–60 minutes of dialogue depending on how much pushback the idea survives.
 
 ## Output
 
